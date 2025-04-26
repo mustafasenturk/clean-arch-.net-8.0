@@ -2,6 +2,7 @@ using System.Reflection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using CleanArchitecture.Domain.Entities;
 
 namespace CleanArchitecture.Infrastructure.Data;
 
@@ -16,6 +17,11 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<RefreshToken> RefreshTokens { get; set; }
     public DbSet<ForgotPassword> ForgotPassword { get; set; }
     public DbSet<Media> Media { get; set; }
+    
+    // Pin management entities
+    public DbSet<Tenant> Tenants { get; set; }
+    public DbSet<Place> Places { get; set; }
+    public DbSet<Coordinates> Coordinates { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

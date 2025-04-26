@@ -3,6 +3,7 @@ using CleanArchitecture.Application.Common;
 using CleanArchitecture.Application.Repositories;
 using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.Infrastructure.Interface;
+using CleanArchitecture.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,10 +21,7 @@ public static class ConfigureServices
         else
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(configuration.ConnectionStrings.DefaultConnection,
-                sqlOptions => sqlOptions.EnableRetryOnFailure(maxRetryCount: 5,
-                                                              maxRetryDelay: TimeSpan.FromSeconds(10),
-                                                              errorNumbersToAdd: null)));
+                options.UseNpgsql(configuration.ConnectionStrings.DefaultConnection));
         }
 
         services.AddIdentity<ApplicationUser, RoleIdentity>()
@@ -36,6 +34,7 @@ public static class ConfigureServices
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
         services.AddScoped<IMediaRepository, MediaRepository>();
         services.AddScoped<IForgotPasswordRepository, ForgotPasswordRepository>();
+        services.AddScoped<ITenantRepository, TenantRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddTransient<ApplicationDbContextInitializer>();
 

@@ -16,6 +16,7 @@ public static class ConfigureServices
         services.AddTransient<IMediaService, MediaService>();
         services.AddTransient<IRoleService, RoleService>();
         services.AddTransient<IAuthIdentityService, AuthIdentityService>();
+        services.AddTransient<ITenantService, TenantService>();
 
         if (appsettings.FileStorageSettings.LocalStorage)
         {

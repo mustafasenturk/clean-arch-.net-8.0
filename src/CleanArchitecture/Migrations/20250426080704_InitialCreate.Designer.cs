@@ -3,106 +3,104 @@ using System;
 using CleanArchitecture.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace CleanArchitecture.Infrastructure.Migrations
+namespace CleanArchitecture.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240717072243_identityEntity")]
-    partial class identityEntity
+    [Migration("20250426080704_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.7")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("ProductVersion", "8.0.0")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("CleanArchitecture.Domain.Entities.ApplicationUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int?>("AvatarId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("Status")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasDefaultValue(1);
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AvatarId")
-                        .IsUnique()
-                        .HasFilter("[AvatarId] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+                        .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("ApplicationUser", (string)null);
 
@@ -111,73 +109,19 @@ namespace CleanArchitecture.Infrastructure.Migrations
                         {
                             Id = new Guid("69db714f-9576-45ba-b5b7-f00649be01de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a6456a8d-a4b0-4046-830b-a9731ebd5a6b",
-                            Email = "admin1@gmail.com",
+                            ConcurrencyStamp = "aaa4a434-66fd-4531-8a07-261720839e3d",
+                            Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "Admin 1",
-                            NormalizedEmail = "ADMIN1@GMAIL.COM",
-                            NormalizedUserName = "admin1",
-                            PasswordHash = "AQAAAAIAAYagAAAAEO9oNwPJdecRbKgHQ8tJRhEO15iZe0gUmQ+VNQBvooV1Q1mwLvHL00QzD6yS0BSo7g==",
+                            NormalizedEmail = "ADMIN@GMAIL.COM",
+                            NormalizedUserName = "admin",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGlxY6sibC8HjTZ9r/Vndv2Q0um0lexJ/FIzjnTkoZmPwp1CNUMNOe35Tz6bzoFvhw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             Status = 0,
                             TwoFactorEnabled = false,
-                            UserName = "admin1"
-                        },
-                        new
-                        {
-                            Id = new Guid("69db714f-9576-45ba-b5b7-f00649be02de"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "d905b15f-0823-4e9d-852f-828a2fc37a1a",
-                            Email = "admin2@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            Name = "Admin 2",
-                            NormalizedEmail = "ADMIN2@GMAIL.COM",
-                            NormalizedUserName = "Admin2",
-                            PasswordHash = "AQAAAAIAAYagAAAAEG1Yzxzo7CIUqt7WtmdliA4t61NXibkTCe5yOcT1MeuOsUj2qFT9dt2b8sjRShH11w==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "",
-                            Status = 0,
-                            TwoFactorEnabled = false,
-                            UserName = "Admin2"
-                        },
-                        new
-                        {
-                            Id = new Guid("69db714f-9576-45ba-b5b7-f00649be03de"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "3ce89235-da10-4143-bb1b-533ac5b56e9d",
-                            Email = "admin3@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            Name = "Admin 3",
-                            NormalizedEmail = "ADMIN3@GMAIL.COM",
-                            NormalizedUserName = "Admin3",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJIRTCUCZAjaSR5khibEucQhHlPpyLDzCRw+0Ip7lIBjXGNEcicCmGwZSbjU8paEnw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "",
-                            Status = 0,
-                            TwoFactorEnabled = false,
-                            UserName = "Admin3"
-                        },
-                        new
-                        {
-                            Id = new Guid("69db714f-9576-45ba-b5b7-f00649be04de"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "c6b8f21b-5cfe-41bc-86a9-48b6ff373527",
-                            Email = "admin4@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            Name = "Admin 4",
-                            NormalizedEmail = "ADMIN4@GMAIL.COM",
-                            NormalizedUserName = "Admin4",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBCAreAzwYB2gvdJ0G7gALi+fUFmDgf7Ls0OuyGhVPexREP7REBzCErLQsrwXERGHg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "",
-                            Status = 0,
-                            TwoFactorEnabled = false,
-                            UserName = "Admin4"
+                            UserName = "admin"
                         });
                 });
 
@@ -185,20 +129,23 @@ namespace CleanArchitecture.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
 
                     b.Property<double?>("Price")
-                        .HasColumnType("float");
+                        .HasColumnType("double precision");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -209,27 +156,30 @@ namespace CleanArchitecture.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("OTP")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Token")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -238,63 +188,99 @@ namespace CleanArchitecture.Infrastructure.Migrations
 
             modelBuilder.Entity("CleanArchitecture.Domain.Entities.Media", b =>
                 {
-                    b.Property<int>("MediaId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MediaId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Caption")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Duration")
-                        .HasColumnType("int");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<long>("FileSize")
                         .HasColumnType("bigint");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("MediaId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("PathMedia")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SortOrder")
-                        .HasColumnType("int");
+                        .HasColumnType("text");
 
                     b.Property<int>("Type")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    b.HasKey("MediaId");
+                    b.HasKey("Id");
 
                     b.ToTable("Media");
+                });
+
+            modelBuilder.Entity("CleanArchitecture.Domain.Entities.Place", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Manager")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("Places");
                 });
 
             modelBuilder.Entity("CleanArchitecture.Domain.Entities.RefreshToken", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("Expires")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime?>("Revoked")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Token")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -307,26 +293,25 @@ namespace CleanArchitecture.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
+                        .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("Role", (string)null);
 
@@ -340,33 +325,85 @@ namespace CleanArchitecture.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("b4314be5-4c77-4fb6-82ad-302014682b13"),
-                            Name = "Subscriber",
-                            NormalizedName = "Subscriber"
+                            Name = "User",
+                            NormalizedName = "User"
                         });
+                });
+
+            modelBuilder.Entity("CleanArchitecture.Domain.Entities.Tenant", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("Lead")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("MainPhone")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tenants");
                 });
 
             modelBuilder.Entity("CleanArchitecture.Domain.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("Role")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -376,10 +413,10 @@ namespace CleanArchitecture.Infrastructure.Migrations
             modelBuilder.Entity("CleanArchitecture.Domain.Entities.UserRoles", b =>
                 {
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("RoleId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -392,21 +429,6 @@ namespace CleanArchitecture.Infrastructure.Migrations
                         {
                             UserId = new Guid("69db714f-9576-45ba-b5b7-f00649be01de"),
                             RoleId = new Guid("a3314be5-4c77-4fb6-82ad-302014682a73")
-                        },
-                        new
-                        {
-                            UserId = new Guid("69db714f-9576-45ba-b5b7-f00649be02de"),
-                            RoleId = new Guid("a3314be5-4c77-4fb6-82ad-302014682a73")
-                        },
-                        new
-                        {
-                            UserId = new Guid("69db714f-9576-45ba-b5b7-f00649be03de"),
-                            RoleId = new Guid("a3314be5-4c77-4fb6-82ad-302014682a73")
-                        },
-                        new
-                        {
-                            UserId = new Guid("69db714f-9576-45ba-b5b7-f00649be04de"),
-                            RoleId = new Guid("a3314be5-4c77-4fb6-82ad-302014682a73")
                         });
                 });
 
@@ -414,18 +436,18 @@ namespace CleanArchitecture.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<Guid>("RoleId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -438,18 +460,18 @@ namespace CleanArchitecture.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -461,16 +483,16 @@ namespace CleanArchitecture.Infrastructure.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("LoginProvider", "ProviderKey", "UserId");
 
@@ -482,16 +504,16 @@ namespace CleanArchitecture.Infrastructure.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("UserId");
 
@@ -507,6 +529,17 @@ namespace CleanArchitecture.Infrastructure.Migrations
                     b.Navigation("Avatar");
                 });
 
+            modelBuilder.Entity("CleanArchitecture.Domain.Entities.Place", b =>
+                {
+                    b.HasOne("CleanArchitecture.Domain.Entities.Tenant", "Tenant")
+                        .WithMany("Places")
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tenant");
+                });
+
             modelBuilder.Entity("CleanArchitecture.Domain.Entities.RefreshToken", b =>
                 {
                     b.HasOne("CleanArchitecture.Domain.Entities.ApplicationUser", "User")
@@ -516,6 +549,31 @@ namespace CleanArchitecture.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("CleanArchitecture.Domain.Entities.Tenant", b =>
+                {
+                    b.OwnsOne("CleanArchitecture.Domain.Entities.Coordinates", "Coordinates", b1 =>
+                        {
+                            b1.Property<int>("TenantId")
+                                .HasColumnType("integer");
+
+                            b1.Property<double>("Latitude")
+                                .HasColumnType("double precision");
+
+                            b1.Property<double>("Longitude")
+                                .HasColumnType("double precision");
+
+                            b1.HasKey("TenantId");
+
+                            b1.ToTable("Coordinates");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TenantId");
+                        });
+
+                    b.Navigation("Coordinates")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CleanArchitecture.Domain.Entities.UserRoles", b =>
@@ -589,6 +647,11 @@ namespace CleanArchitecture.Infrastructure.Migrations
             modelBuilder.Entity("CleanArchitecture.Domain.Entities.RoleIdentity", b =>
                 {
                     b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("CleanArchitecture.Domain.Entities.Tenant", b =>
+                {
+                    b.Navigation("Places");
                 });
 #pragma warning restore 612, 618
         }
